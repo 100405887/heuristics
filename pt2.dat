@@ -1,0 +1,24 @@
+data;
+
+# The locations found for this situation
+set LOCATION := L1 L2 L3 L4;
+
+set TRANSPORTATIONS:	L1	L2	L3	L4:=
+L1			L1L1	L1L2	L1L3	L1L4
+L2			L2L1	L2L2	L2L3	L2L4
+L3			L3L1	L3L2	L3L3	L3L4
+L4			L4L1	L4L2	L4L3	L4L4;
+
+# cost of tranposting among locations
+param cost:	L1	L2	L3	L4 :=
+L1              100	10	10	2
+L2              10	100	100	2 
+L3              10	100	100	6     
+L4              2	2	6	100;
+
+# Availability/Demand matrix
+param availability:	L1	L2	L3	L4 :=
+Available		0	4	4	0
+Demand			2	0	0	6;
+
+end;
