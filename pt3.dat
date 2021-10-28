@@ -1,0 +1,23 @@
+data;
+
+# The locations found for this situation
+set LOCATION := L1 L2 L3 L4;
+
+# The freelancers found for this situation
+set LOCATION := FR1 FR2 FRE3 FR4;
+
+# cost of charging at locations depending on the freelancer
+param COST:	L1	L2	L3	L4 :=
+FR1              50	20	10	60
+FR2              30	10	10	100 
+FR3              100	30	20	70     
+FR4              10	50	70	20;
+
+# Scooters that must be charged per location 
+param SCOOTPERLOC :=
+L1      3
+L2      2
+L3      4
+L4      1;
+
+end;
