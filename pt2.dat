@@ -3,15 +3,17 @@ data;
 # The locations found for this situation
 set LOCATION := L1 L2 L3 L4;
 
+set DISPONIBILITY:= Available Demand;
+
 # cost of tranposting among locations
-param cost:	L1	L2	L3	L4 :=
+param COST:	L1	L2	L3	L4 :=
 L1              100	10	10	2
 L2              10	100	100	2 
 L3              10	100	100	6     
 L4              2	2	6	100;
 
 # Availability/Demand matrix
-param availability:	L1	L2	L3	L4 :=
+param AVAILABILITY:	L1	L2	L3	L4 :=
 Available		0	4	4	0
 Demand			2	0	0	6;
 
