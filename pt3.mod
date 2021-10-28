@@ -7,6 +7,9 @@ param COST{m in LOCATION, n in FREELANCER};
 #Amount of scooters to be charged per location
 param SCOOTPERLOC{L in LOCATION, F in FREELANCER};
 
+#Freelancers not allowed to recharged at certain locations
+param PROHIBITED{L in LOCATION, F in FREELANCER};
+
 # Decision variables named CHARGES 
 var CHARGES{m in LOCATION, n in FREELANCER} integer, >= 0; 
 
@@ -21,4 +24,7 @@ s.t. LOCS {m in LOCATION: SCOOTPERLOC[m]>0}:
 # No freelancer can charge more than 3 scooters
 s.t. FREEMAX {n in FREELANCER}: 
     sum{m in LOCATION} CHARGES[m,n] <= 3;
+    
+s.t. BANNED{m in LOCATION, n in FREELANCER: BAN[m,n]=1}:
+    CHARGES[m,n]=0;
     
