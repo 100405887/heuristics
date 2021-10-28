@@ -4,7 +4,7 @@ data;
 set LOCATION := L1 L2 L3 L4;
 
 # The freelancers found for this situation
-set LOCATION := FR1 FR2 FRE3 FR4;
+set FREELANCER := FR1 FR2 FRE3 FR4;
 
 # cost of charging at locations depending on the freelancer
 param COST:	L1	L2	L3	L4 :=
@@ -20,4 +20,10 @@ L2      2
 L3      4
 L4      1;
 
+#Freelancers not allowed to recharged at certain locations, 1 denotes a prohibition in place
+param BAN:	L1	L2	L3	L4 :=
+FR1         1	0	0	0
+FR2         0	0	0	0 
+FR3         0	0	0	0     
+FR4         0	0	0	0;
 end;
