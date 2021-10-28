@@ -10,7 +10,9 @@ L2              10	100	100	2
 L3              10	100	100	6     
 L4              2	2	6	100;
 
-# Availability/Demand matrix
+# Availability vector
+# Positive values imply available scooters
+# Negative values imply demanded scooters 
 param AVAILABILITY :=
 L1      2
 L2      -4

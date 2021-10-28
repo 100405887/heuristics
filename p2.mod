@@ -10,8 +10,8 @@ param AVAILABILITY{b in LOCATION};
 var DISPLACEMENT{m in LOCATION, n in LOCATION} integer, >= 0; 
 ###### Objective function ######
 minimize GOAL: sum{m in LOCATION, n in LOCATION} DISPLACEMENT[m,n]*COST[m,n];
+
 ###### Constraints ###### 
-######################################REVISAR CONSTRAINTS
 # Every available location must share at least 90% of their scooters available
 s.t. share90 {m in LOCATION: AVAILABILITY[m]>0}: 
     sum{n in LOCATION} DISPLACEMENT[m,n] >= 0.9*AVAILABILITY[m];
@@ -23,7 +23,7 @@ s.t. arriving:
 # Scooters arriving to a demanding location must be at least the sum of its demand plus 
 # scooters  leaving that location
 s.t. demands {m in LOCATION: AVAILABILITY[m]<0}: 
-    sum{n in LOCATION} (DISPLACEMENT[n,m]-DISPLACEMENT[m,n]) >=  -AVAILABILITY[m];
+    sum{n in LOCATION} (DISPLACEMENT[n,m]-DISPLACEMENT[m,n]) >= -AVAILABILITY[m];
     
 # Sum of scooters leaving a location with no demand must be less or equal to 
 # scooters arriving plus available scooters 

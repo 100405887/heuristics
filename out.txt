@@ -1,20 +1,17 @@
 Problem:    p2
-Rows:       8
+Rows:       5
 Columns:    16 (16 integer, 0 binary)
-Non-zeros:  56
+Non-zeros:  36
 Status:     INTEGER OPTIMAL
-Objective:  GOAL = 36 (MINimum)
+Objective:  GOAL = 8 (MINimum)
 
    No.   Row name        Activity     Lower bound   Upper bound
 ------ ------------    ------------- ------------- -------------
-     1 GOAL                       36                             
-     2 share90[L1]                 2           1.8               
-     3 share90[L4]                 8           5.4               
-     4 arriving                   10             8               
-     5 demands[L2]                 4             4               
-     6 demands[L3]                 4             4               
-     7 leaving[L1]                 2                           2 
-     8 leaving[L4]                 6                           6 
+     1 GOAL                        8                             
+     2 share90[L2]                 1           0.9               
+     3 arriving                    1             1               
+     4 demands[L3]                 1             1               
+     5 leaving[L2]                 1                           1 
 
    No. Column name       Activity     Lower bound   Upper bound
 ------ ------------    ------------- ------------- -------------
@@ -25,7 +22,7 @@ Objective:  GOAL = 36 (MINimum)
      3 DISPLACEMENT[L1,L3]
                     *              0             0               
      4 DISPLACEMENT[L1,L4]
-                    *              2             0               
+                    *              0             0               
      5 DISPLACEMENT[L2,L1]
                     *              0             0               
      6 DISPLACEMENT[L2,L2]
@@ -33,7 +30,7 @@ Objective:  GOAL = 36 (MINimum)
      7 DISPLACEMENT[L2,L3]
                     *              0             0               
      8 DISPLACEMENT[L2,L4]
-                    *              0             0               
+                    *              1             0               
      9 DISPLACEMENT[L3,L1]
                     *              0             0               
     10 DISPLACEMENT[L3,L2]
@@ -45,9 +42,9 @@ Objective:  GOAL = 36 (MINimum)
     13 DISPLACEMENT[L4,L1]
                     *              0             0               
     14 DISPLACEMENT[L4,L2]
-                    *              4             0               
+                    *              0             0               
     15 DISPLACEMENT[L4,L3]
-                    *              4             0               
+                    *              1             0               
     16 DISPLACEMENT[L4,L4]
                     *              0             0               
 
