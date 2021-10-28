@@ -11,10 +11,10 @@ param SCOOTPERLOC{L in LOCATION, F in FREELANCER};
 param PLACEMENT{S in SCOOTER, L in LOCATION};
 
 #Freelancers not allowed to recharged at certain locations
-param PROHIBITED{L in LOCATION, F in FREELANCER};
+param BAN{L in LOCATION, F in FREELANCER};
 
 # Decision variables named CHARGES 
-var CHARGES{m in LOCATION, n in FREELANCER} integer, >= 0; 
+var CHARGES{S in SCOOTER, n in FREELANCER} integer, >= 0; 
 
 ###### Objective function ######
 minimize GOAL: sum{m in LOCATION, n in FREELANCER} CHARGES[m,n]*COST[m,n];
