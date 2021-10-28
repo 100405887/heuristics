@@ -12,7 +12,7 @@ L4              2	2	6	100;
 
 # Availability/Demand matrix
 param AVAILABILITY :=
-L1			2
+L1      2
 L2      -4
 L3      -4
 L4      6;

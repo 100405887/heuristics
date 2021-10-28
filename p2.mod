@@ -18,12 +18,12 @@ s.t. share90 {m in LOCATION: AVAILABILITY[m]>0}:
     
 # Scooters leaving an available location must be at least equal to total demand 
 s.t. arriving: 
-    sum{m in LOCATION,n in LOCATION:AVAILABILITY[n]>0} DISPLACEMENT[n,m] >= sum{n in LOCATION: AVAILABILITY[n]>0}AVAILABILITY[n];
+    sum{m in LOCATION,n in LOCATION:AVAILABILITY[m]>0} DISPLACEMENT[m,n] >= -sum{n in LOCATION: AVAILABILITY[n]<0}AVAILABILITY[n];
     
 # Scooters arriving to a demanding location must be at least the sum of its demand plus 
 # scooters  leaving that location
-s.t. demands {m in LOCATION: AVAILABILITY[m]>0}: 
-    sum{n in LOCATION} DISPLACEMENT[n,m] >= AVAILABILITY[m] + sum{n in LOCATION}DISPLACEMENT[m,n];
+s.t. demands {m in LOCATION: AVAILABILITY[m]<0}: 
+    sum{n in LOCATION} (DISPLACEMENT[n,m]-DISPLACEMENT[m,n]) >=  -AVAILABILITY[m];
     
 # Sum of scooters leaving a location with no demand must be less or equal to 
 # scooters arriving plus available scooters 

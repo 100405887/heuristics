@@ -1,0 +1,64 @@
+Problem:    p2
+Rows:       8
+Columns:    16 (16 integer, 0 binary)
+Non-zeros:  56
+Status:     INTEGER OPTIMAL
+Objective:  GOAL = 36 (MINimum)
+
+   No.   Row name        Activity     Lower bound   Upper bound
+------ ------------    ------------- ------------- -------------
+     1 GOAL                       36                             
+     2 share90[L1]                 2           1.8               
+     3 share90[L4]                 8           5.4               
+     4 arriving                   10             8               
+     5 demands[L2]                 4             4               
+     6 demands[L3]                 4             4               
+     7 leaving[L1]                 2                           2 
+     8 leaving[L4]                 6                           6 
+
+   No. Column name       Activity     Lower bound   Upper bound
+------ ------------    ------------- ------------- -------------
+     1 DISPLACEMENT[L1,L1]
+                    *              0             0               
+     2 DISPLACEMENT[L1,L2]
+                    *              0             0               
+     3 DISPLACEMENT[L1,L3]
+                    *              0             0               
+     4 DISPLACEMENT[L1,L4]
+                    *              2             0               
+     5 DISPLACEMENT[L2,L1]
+                    *              0             0               
+     6 DISPLACEMENT[L2,L2]
+                    *              0             0               
+     7 DISPLACEMENT[L2,L3]
+                    *              0             0               
+     8 DISPLACEMENT[L2,L4]
+                    *              0             0               
+     9 DISPLACEMENT[L3,L1]
+                    *              0             0               
+    10 DISPLACEMENT[L3,L2]
+                    *              0             0               
+    11 DISPLACEMENT[L3,L3]
+                    *              0             0               
+    12 DISPLACEMENT[L3,L4]
+                    *              0             0               
+    13 DISPLACEMENT[L4,L1]
+                    *              0             0               
+    14 DISPLACEMENT[L4,L2]
+                    *              4             0               
+    15 DISPLACEMENT[L4,L3]
+                    *              4             0               
+    16 DISPLACEMENT[L4,L4]
+                    *              0             0               
+
+Integer feasibility conditions:
+
+KKT.PE: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+KKT.PB: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+End of output
