@@ -1,11 +1,14 @@
 set LOCATION; 
 set FREELANCER;
+set SCOOTERS;
 
 # Cost of A FREELANCER charging a scooter according to location
 param COST{m in LOCATION, n in FREELANCER};
 
 #Amount of scooters to be charged per location
 param SCOOTPERLOC{L in LOCATION, F in FREELANCER};
+
+param PLACEMENT{S in SCOOTER, L in LOCATION};
 
 #Freelancers not allowed to recharged at certain locations
 param PROHIBITED{L in LOCATION, F in FREELANCER};
