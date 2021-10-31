@@ -6,6 +6,9 @@ set LOCATION := L1 L2 L3 L4;
 # The freelancers found for this situation
 set FREELANCER := FR1 FR2 FRE3 FR4;
 
+# The Scooters to be charged
+set SCOOTER := S11 S12 S13 S21 S22 S31 S32 S33 S34 S41;
+
 # cost of charging at locations depending on the freelancer
 param COST:	L1	L2	L3	L4 :=
 FR1         50	20	10	60
@@ -14,23 +17,18 @@ FR3        100  30	20	70
 FR4         10	50	70	20;
 
 #location at which each scooter is found
-param PLACEMENT=: S11 S12 S13 S21 S22 S31 S32 S33 S34 S41
-L1 1  1 1 0 0 0 0 0 0 0
-L2 0  0 0 1 1 0 0 0 0 0
-L3 0  0 0 0 0 1 1 1 1 0
-L4 0  0 0 0 0 0 0 0 0 1 ;
+param PLACEMENT: S11 S12 S13 S21 S22 S31 S32 S33 S34 S41 :=
+L1                  1   1   1   0   0   0   0   0   0   0
+L2                  0   0   0   1   1   0   0   0   0   0
+L3                  0   0   0   0   0   1   1   1   1   0
+L4                  0   0   0   0   0   0   0   0   0   1 ;
 
-# Scooters that must be charged per location 
-param SCOOTPERLOC :=
-L1      3
-L2      2
-L3      4
-L4      1;
+#Freelancers not allowed to recharged at certain locations, 0 denotes a prohibition in place
+param ALLOWED:	L1	L2	L3	L4 :=
+FR1         0	1	1	1
+FR2         1	1	0	1 
+FR3         1	1	1	1     
+FR4         1	1	1	1;
 
-#Freelancers not allowed to recharged at certain locations, 1 denotes a prohibition in place
-param BAN:	L1	L2	L3	L4 :=
-FR1         1	0	0	0
-FR2         0	0	0	0 
-FR3         0	0	0	0     
-FR4         0	0	0	0;
+
 end;
