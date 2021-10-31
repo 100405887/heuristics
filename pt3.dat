@@ -8,10 +8,10 @@ set FREELANCER := FR1 FR2 FRE3 FR4;
 
 # cost of charging at locations depending on the freelancer
 param COST:	L1	L2	L3	L4 :=
-FR1              50	20	10	60
-FR2              30	10	10	100 
-FR3              100	30	20	70     
-FR4              10	50	70	20;
+FR1         50	20	10	60
+FR2         30	10	10 100 
+FR3        100  30	20	70     
+FR4         10	50	70	20;
 
 #location at which each scooter is found
 param PLACEMENT=: S11 S12 S13 S21 S22 S31 S32 S33 S34 S41
