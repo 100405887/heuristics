@@ -1,7 +1,8 @@
 set LOCATION; 
 set FREELANCER;
 set SCOOTER;
-
+# Maximum of scooters charges per Freelancer
+param MAX_CHARGES;
 # Cost of A FREELANCER charging a scooter according to location
 param COST{f in FREELANCER, l in LOCATION};
 
@@ -23,7 +24,7 @@ minimize GOAL: sum{l in LOCATION} sum{f in FREELANCER, s in SCOOTER} (COST[f,l]*
 
 # No freelancer can charge more than 3 scooters
 s.t. MAX_PER_FREELANCER {f in FREELANCER}: 
-    sum{s in SCOOTER} CHARGES[f,s] <= 3;
+    sum{s in SCOOTER} CHARGES[f,s] <= MAX_CHARGES;
 
 # Each scooter must be recharged by a single freelancer    
 s.t. ONEFREELANCER{s in SCOOTER}:

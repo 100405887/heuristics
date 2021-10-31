@@ -9,8 +9,11 @@ set FREELANCER := FR1 FR2 FR3 FR4;
 # The Scooters to be charged
 set SCOOTER := S11 S12 S13 S21 S22 S31 S32 S33 S34 S41;
 
+#Maxium number of charges a Freelancer can do
+param MAX_CHARGES := 3;
+
 # cost of charging at locations depending on the freelancer
-param COST:	L1	L2	L3	L4 :=
+param CHARGINGC:	L1	L2	L3	L4 :=
 FR1         50	20	10	60
 FR2         30	10	10 100 
 FR3        100  30	20	70     
@@ -29,7 +32,21 @@ FR1         0	1	1	1
 FR2         1	1	0	1 
 FR3         1	1	1	1     
 FR4         1	1	1	1;
-#Maxium number of charges a Freelancer can do
-param MAX_CHARGES := 3;
+
+# cost of tranposting among locations
+param MOVINGC:	L1	L2	L3	L4 :=
+L1         	100	10	10	 2
+L2          10 	100 	100	 2 
+L3          10 	100 	100	 6     
+L4          2	 2	 6 	100;
+
+# Availability vector
+# Positive values imply available scooters
+# Negative values imply demanded scooters 
+param AVAILABILITY :=
+L1      2
+L2     -4
+L3     -4
+L4      6;
 
 end;
