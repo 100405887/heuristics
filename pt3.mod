@@ -20,9 +20,9 @@ var CHARGES{f in FREELANCER, s in SCOOTER} binary;
 ###### Objective function ######
 #minimize GOAL: {s in SCOOTER, l in LOCATION} sum{f in FREELANCER, a in FREELANCER}(COST[f,l]*PLACEMENT[l,s]*CHARGES[s,a]);
 #minimize GOAL:sum{f in FREELANCER, a in FREELANCER}((COST*PLACEMENT*CHARGES)[f,a]);
-minimize GOAL: sum{f in FREELANCER, s in SCOOTER} (COST*PLACEMENT)*CHARGES[f,s];
+#minimize GOAL: sum{f in FREELANCER, s in SCOOTER} (COST[f,l]*PLACEMENT[l,s])*CHARGES[f,s];
 #minimize GOAL: sum{f in FREELANCER, a in FREELANCER} COST[f,l]*(PLACEMENT[l,s]*CHARGES[s,a]);
-
+minimize GOAL{l in LOCATION}: sum{f in FREELANCER, s in SCOOTER} (COST[f,l]*PLACEMENT[l,s])*CHARGES[f,s];
 ###### Constraints ###### 
 
 # No freelancer can charge more than 3 scooters
