@@ -34,8 +34,8 @@ s.t. ONEFREELANCER{s in SCOOTER}:
     sum{f in FREELANCER} CHARGES[f,s]=1;
 
 # Banned locations per freelancer
-s.t. BANNED{s in SCOOTER, l in LOCATION}:
-    sum{f in FREELANCER} ALLOWED[f,l]*PLACEMENT[l,s]*CHARGES[f,s] = sum{f in FREELANCER} CHARGES[f,s];
+s.t. BANNEDfF in FREELANCER, l in LOCATION}:
+    sum{s in SCOOTER} (ALLOWED[f,l]*PLACEMENT[l,s])*CHARGES[f,s] = sum{s in SCOOTER} CHARGES[f,s];
 
 # 50% max 
 s.t. fiftymax{f in FREELANCER, a in FREELANCER}:
