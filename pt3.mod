@@ -18,15 +18,11 @@ param ALLOWED{f in FREELANCER, l in LOCATION};
 var CHARGES{f in FREELANCER, s in SCOOTER} binary; 
 
 ###### Objective function ######
-#minimize GOAL: {s in SCOOTER, l in LOCATION} sum{f in FREELANCER, a in FREELANCER}(COST[f,l]*PLACEMENT[l,s]*CHARGES[s,a]);
-#minimize GOAL:sum{f in FREELANCER, a in FREELANCER}((COST*PLACEMENT*CHARGES)[f,a]);
-#minimize GOAL: sum{f in FREELANCER, s in SCOOTER} (COST[f,l]*PLACEMENT[l,s])*CHARGES[f,s];
-#minimize GOAL: sum{f in FREELANCER, a in FREELANCER} COST[f,l]*(PLACEMENT[l,s]*CHARGES[s,a]);
-minimize GOAL{l in LOCATION}: sum{f in FREELANCER, s in SCOOTER} (COST[f,l]*PLACEMENT[l,s])*CHARGES[f,s];
+minimize GOAL: sum{l in LOCATION} sum{f in FREELANCER, s in SCOOTER} (COST[f,l]*PLACEMENT[l,s])*CHARGES[f,s];
 ###### Constraints ###### 
 
 # No freelancer can charge more than 3 scooters
-s.t. FREEMAX {f in FREELANCER}: 
+s.t. MAX_PER_FREELANCER {f in FREELANCER}: 
     sum{s in SCOOTER} CHARGES[f,s] <= 3;
 
 # Each scooter must be recharged by a single freelancer    
@@ -34,10 +30,11 @@ s.t. ONEFREELANCER{s in SCOOTER}:
     sum{f in FREELANCER} CHARGES[f,s]=1;
 
 # Banned locations per freelancer
-s.t. BANNED{s in SCOOTER, l in LOCATION}:
-    sum{f in FREELANCER} ALLOWED[f,l]*PLACEMENT[l,s]*CHARGES[f,s] = sum{f in FREELANCER} CHARGES[f,s];
+s.t. BANNED{l in LOCATION, f in FREELANCER: ALLOWED[f,l]=0}:
+    sum{s in SCOOTER} PLACEMENT[l,s]*CHARGES[f,s] = 0;
 
-# 50% max 
-s.t. fiftymax{f in FREELANCER, a in FREELANCER}:
+# Maximum of 50% more charges than rest of freelancers
+s.t. COMPENSATE{f in FREELANCER, a in FREELANCER}:
     sum{s in SCOOTER} CHARGES[f,s]<=1.5*sum{s in SCOOTER} CHARGES[a,s];
+    
 end;
