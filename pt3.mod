@@ -30,8 +30,13 @@ s.t. ONEFREELANCER{s in SCOOTER}:
     sum{f in FREELANCER} CHARGES[f,s]=1;
 
 # Banned locations per freelancer
+<<<<<<< HEAD
 s.t. BANNED{l in LOCATION, f in FREELANCER: ALLOWED[f,l]=0}:
     sum{s in SCOOTER} PLACEMENT[l,s]*CHARGES[f,s] = 0;
+=======
+s.t. BANNEDfF in FREELANCER, l in LOCATION}:
+    sum{s in SCOOTER} (ALLOWED[f,l]*PLACEMENT[l,s])*CHARGES[f,s] = sum{s in SCOOTER} CHARGES[f,s];
+>>>>>>> cc03ddfc2433f818cf1a1638d97f031f847aec8f
 
 # Maximum of 50% more charges than rest of freelancers
 s.t. COMPENSATE{f in FREELANCER, a in FREELANCER}:
