@@ -4,7 +4,7 @@ data;
 set LOCATION := L1 L2 L3 L4;
 
 # The freelancers found for this situation
-set FREELANCER := FR1 FR2 FRE3 FR4;
+set FREELANCER := FR1 FR2 FR3 FR4;
 
 # The Scooters to be charged
 set SCOOTER := S11 S12 S13 S21 S22 S31 S32 S33 S34 S41;

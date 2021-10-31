@@ -11,7 +11,7 @@ param COST{f in FREELANCER, l in LOCATION};
 param PLACEMENT{l in LOCATION, s in SCOOTER};
 
 #Freelancers not allowed to recharged at certain locations
-param ALLOWED{l in LOCATION, f in FREELANCER};
+param ALLOWED{f in FREELANCER, l in LOCATION};
 
 # Decision variables named CHARGES 
 var CHARGES{s in SCOOTER, f in FREELANCER} integer, >= 0; 
@@ -35,5 +35,5 @@ s.t. BANNED{f in FREELANCER,s in SCOOTER, l in LOCATION}:
 
 # 50% max 
 s.t. fiftymax{f in FREELANCER, a in FREELANCER}:
-    sum{s in SCOOTER} CHARGES[s,f]<=1.5*sum{s in SCOOTER} CHARGES[a,f];
+    sum{s in SCOOTER} CHARGES[s,f]<=1.5*sum{s in SCOOTER} CHARGES[s,a];
 end;
