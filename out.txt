@@ -1,13 +1,13 @@
-Problem:    final
-Rows:       40
-Columns:    56 (56 integer, 40 binary)
-Non-zeros:  463
+Problem:    pt3
+Rows:       33
+Columns:    40 (40 integer, 40 binary)
+Non-zeros:  407
 Status:     INTEGER OPTIMAL
-Objective:  GOAL = 186 (MINimum)
+Objective:  GOAL = 150 (MINimum)
 
    No.   Row name        Activity     Lower bound   Upper bound
 ------ ------------    ------------- ------------- -------------
-     1 GOAL                      186                             
+     1 GOAL                      150                             
      2 MAX_PER_FREELANCER[FR1]
                                    2                           3 
      3 MAX_PER_FREELANCER[FR2]
@@ -72,127 +72,88 @@ Objective:  GOAL = 186 (MINimum)
                                    0                          -0 
     33 COMPENSATE[FR4,FR4]
                                 -1.5                          -0 
-    34 share90[L1]                 2           1.8               
-    35 share90[L4]                 8           5.4               
-    36 arriving                   10             8               
-    37 demands[L2]                 4             4               
-    38 demands[L3]                 4             4               
-    39 leaving[L1]                 2                           2 
-    40 leaving[L4]                 6                           6 
 
    No. Column name       Activity     Lower bound   Upper bound
 ------ ------------    ------------- ------------- -------------
-     1 DISPLACEMENT[L1,L1]
-                    *              0             0               
-     2 DISPLACEMENT[L1,L2]
-                    *              0             0               
-     3 DISPLACEMENT[L1,L3]
-                    *              0             0               
-     4 DISPLACEMENT[L1,L4]
-                    *              2             0               
-     5 DISPLACEMENT[L2,L1]
-                    *              0             0               
-     6 DISPLACEMENT[L2,L2]
-                    *              0             0               
-     7 DISPLACEMENT[L2,L3]
-                    *              0             0               
-     8 DISPLACEMENT[L2,L4]
-                    *              0             0               
-     9 DISPLACEMENT[L3,L1]
-                    *              0             0               
-    10 DISPLACEMENT[L3,L2]
-                    *              0             0               
-    11 DISPLACEMENT[L3,L3]
-                    *              0             0               
-    12 DISPLACEMENT[L3,L4]
-                    *              0             0               
-    13 DISPLACEMENT[L4,L1]
-                    *              0             0               
-    14 DISPLACEMENT[L4,L2]
-                    *              4             0               
-    15 DISPLACEMENT[L4,L3]
-                    *              4             0               
-    16 DISPLACEMENT[L4,L4]
-                    *              0             0               
-    17 CHARGES[FR1,S11]
+     1 CHARGES[FR1,S11]
                     *              0             0             1 
-    18 CHARGES[FR1,S12]
+     2 CHARGES[FR1,S12]
                     *              0             0             1 
-    19 CHARGES[FR1,S13]
+     3 CHARGES[FR1,S13]
                     *              0             0             1 
-    20 CHARGES[FR1,S21]
+     4 CHARGES[FR1,S21]
                     *              0             0             1 
-    21 CHARGES[FR1,S22]
+     5 CHARGES[FR1,S22]
                     *              0             0             1 
-    22 CHARGES[FR1,S31]
+     6 CHARGES[FR1,S31]
                     *              1             0             1 
-    23 CHARGES[FR1,S32]
+     7 CHARGES[FR1,S32]
                     *              0             0             1 
-    24 CHARGES[FR1,S33]
+     8 CHARGES[FR1,S33]
                     *              0             0             1 
-    25 CHARGES[FR1,S34]
+     9 CHARGES[FR1,S34]
                     *              1             0             1 
-    26 CHARGES[FR1,S41]
+    10 CHARGES[FR1,S41]
                     *              0             0             1 
-    27 CHARGES[FR2,S11]
+    11 CHARGES[FR2,S11]
                     *              0             0             1 
-    28 CHARGES[FR2,S12]
+    12 CHARGES[FR2,S12]
                     *              0             0             1 
-    29 CHARGES[FR2,S13]
+    13 CHARGES[FR2,S13]
                     *              1             0             1 
-    30 CHARGES[FR2,S21]
+    14 CHARGES[FR2,S21]
                     *              1             0             1 
-    31 CHARGES[FR2,S22]
+    15 CHARGES[FR2,S22]
                     *              1             0             1 
-    32 CHARGES[FR2,S31]
+    16 CHARGES[FR2,S31]
                     *              0             0             1 
-    33 CHARGES[FR2,S32]
+    17 CHARGES[FR2,S32]
                     *              0             0             1 
-    34 CHARGES[FR2,S33]
+    18 CHARGES[FR2,S33]
                     *              0             0             1 
-    35 CHARGES[FR2,S34]
+    19 CHARGES[FR2,S34]
                     *              0             0             1 
-    36 CHARGES[FR2,S41]
+    20 CHARGES[FR2,S41]
                     *              0             0             1 
-    37 CHARGES[FR3,S11]
+    21 CHARGES[FR3,S11]
                     *              0             0             1 
-    38 CHARGES[FR3,S12]
+    22 CHARGES[FR3,S12]
                     *              0             0             1 
-    39 CHARGES[FR3,S13]
+    23 CHARGES[FR3,S13]
                     *              0             0             1 
-    40 CHARGES[FR3,S21]
+    24 CHARGES[FR3,S21]
                     *              0             0             1 
-    41 CHARGES[FR3,S22]
+    25 CHARGES[FR3,S22]
                     *              0             0             1 
-    42 CHARGES[FR3,S31]
+    26 CHARGES[FR3,S31]
                     *              0             0             1 
-    43 CHARGES[FR3,S32]
+    27 CHARGES[FR3,S32]
                     *              1             0             1 
-    44 CHARGES[FR3,S33]
+    28 CHARGES[FR3,S33]
                     *              1             0             1 
-    45 CHARGES[FR3,S34]
+    29 CHARGES[FR3,S34]
                     *              0             0             1 
-    46 CHARGES[FR3,S41]
+    30 CHARGES[FR3,S41]
                     *              0             0             1 
-    47 CHARGES[FR4,S11]
+    31 CHARGES[FR4,S11]
                     *              1             0             1 
-    48 CHARGES[FR4,S12]
+    32 CHARGES[FR4,S12]
                     *              1             0             1 
-    49 CHARGES[FR4,S13]
+    33 CHARGES[FR4,S13]
                     *              0             0             1 
-    50 CHARGES[FR4,S21]
+    34 CHARGES[FR4,S21]
                     *              0             0             1 
-    51 CHARGES[FR4,S22]
+    35 CHARGES[FR4,S22]
                     *              0             0             1 
-    52 CHARGES[FR4,S31]
+    36 CHARGES[FR4,S31]
                     *              0             0             1 
-    53 CHARGES[FR4,S32]
+    37 CHARGES[FR4,S32]
                     *              0             0             1 
-    54 CHARGES[FR4,S33]
+    38 CHARGES[FR4,S33]
                     *              0             0             1 
-    55 CHARGES[FR4,S34]
+    39 CHARGES[FR4,S34]
                     *              0             0             1 
-    56 CHARGES[FR4,S41]
+    40 CHARGES[FR4,S41]
                     *              1             0             1 
 
 Integer feasibility conditions:
