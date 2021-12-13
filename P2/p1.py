@@ -52,10 +52,8 @@ def setPorts(*args):
     for i in range(len(args)):
         for j in range(len(args)):
             if (contM[i][2]==1 and contM[j][2] == 2):
-                for x in range(len(args)):
-                    for y in range(len(args)):
-                        if args[i][x][1]>args[i][y][1] and x==y:
-                            return False 
+                if args[i][1]>args[j][1] and args[j][0]==args[i][0]:
+                    return False 
 
     return True
 
