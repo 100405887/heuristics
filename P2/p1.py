@@ -58,12 +58,15 @@ def setPorts(*args):
     return True
 
 def checkDepth1(*args):
+    ok=True
     for i in range(len(args)):
-        for j in range(len(args)):
-            if i!=j:
-                if args[i][0] == args[j][0]+1 or args[i][0] == len(mapM) - 1 or args[i][0]+1=='X':
-                    return True
-    return False
+            for j in range(len(args)):
+            
+                if args[i][0] == args[j][0]+1 or args[i][0] == len(mapM) - 1 or mapM[args[i][0]+1][args[i][1]]=='X':
+                    ok= True
+                else: ok=False 
+    return ok
+
 
 def checkDepth2(*args):
     ok=True    
@@ -76,6 +79,22 @@ def checkDepth2(*args):
                 ok=True
     return ok
 
+def checkDepth23448(*args):
+    ok=True
+    for i in range(len(args)):
+        if alltheway(i, args) or args[i][0] == len(mapM) - 1 or mapM[args[i][0]+1][args[i][1]]=='X':
+            ok= True
+        else: ok=False 
+    return ok
+
+def alltheway(i, args):
+    ok= True
+    for j in range(i,len(args)):
+        for k in range(j, len(args)):
+            if args[j][0]+1 != args[k][0] and args[i][0] != len(mapM) - 1 and mapM[args[i][0]+1][args[i][1]]!='X':
+                ok=False
+            else: ok=True
+    return ok
 
 if __name__ == '__main__':
     problem = constraint.Problem()
@@ -109,7 +128,7 @@ if __name__ == '__main__':
 
     problem.addConstraint(different,)
     problem.addConstraint(setPorts,)
-    problem.addConstraint(checkDepth1,)
+    problem.addConstraint(checkDepth23448,)
 
     solutions = problem.getSolutions()
     print (" #{0} solutions have been found.".format(len(solutions)))
