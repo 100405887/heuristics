@@ -30,6 +30,52 @@ def bottom(cont, bay, bayrowindex, baycolindex):
     
 #     return True
 
+# def differentMAL(*args):
+#     for i in args:
+#         repetitions=0
+#         for j in args:
+#             if (i == j):
+#                 repetitions+=1
+#         if repetitions>1:
+#             return False
+#     return True
+
+def different(*args):
+    for i in range(len(args)):
+        for j in range(len(args)):
+            if i!=j:
+                if args[i] == args[j]:
+                    return False 
+    return True
+
+# def setPorts(*args):
+    # for i in len(args):
+    #     for j in len(args):
+    #         if (args[i][2]==1 and args[j][2] == 2):
+    #             if args[i] =  
+
+    # return True
+
+def checkDepth(*args):
+    for i in range(len(args)):
+        for j in range(len(args)):
+            if i!=j:
+                if args[i][0] == args[j][0]+1 or args[i][0] = len(mapM) - 1 or args[i][0]+1:
+                    return True
+    return False
+
+def checkDepth(*args):
+    ok=True    
+    for i in args:
+        ok=False
+        posi=i
+        for j in args:
+            posj=j
+            if ((posj[1]-posi[1])<2 or (mapM[posi[0]][posi[1]+1]!='S' and mapM[posi[0]][posi[1]+1]!='E')):
+                ok=True
+    return ok
+
+
 if __name__ == '__main__':
     problem = constraint.Problem()
     #adding the variables with their domains
@@ -55,13 +101,18 @@ if __name__ == '__main__':
         if conts[1]=='R':
             problem.addVariable(conts[0],electrified)
 
-    # problem.addConstraint(AllDifferentConstraint(), allconts)
-    # problem.addConstraint(setPorts(), allconts)
-    # problem.addConstraint(checkDepth(), allconts)
+     
+    #problem.addConstraint(AllDifferentConstraint(), range(0,len(allconts)))
+   
+    
 
-    # solutions = problem.getSolutions()
-    # print (" #{0} solutions have been found.".format(len(solutions)))
-    # print(solutions)
-    print(allpos)
-    print(electrified)
-    print(allconts)
+    problem.addConstraint(different, allconts)
+    problem.addConstraint(setPorts, allconts)
+    problem.addConstraint(checkDepth, allconts)
+
+    solutions = problem.getSolutions()
+    print (" #{0} solutions have been found.".format(len(solutions)))
+    #print(solutions)
+    # print(allpos)
+    # print(electrified)
+    # print(allconts)
