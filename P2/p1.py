@@ -48,23 +48,26 @@ def different(*args):
                     return False 
     return True
 
-# def setPorts(*args):
-    # for i in len(args):
-    #     for j in len(args):
-    #         if (args[i][2]==1 and args[j][2] == 2):
-    #             if args[i] =  
+def setPorts(*args):
+    for i in range(len(args)):
+        for j in range(len(args)):
+            if (contM[i][2]==1 and contM[j][2] == 2):
+                for x in range(len(args)):
+                    for y in range(len(args)):
+                        if args[i][x][1]>args[i][y][1] and x==y:
+                            return False 
 
-    # return True
+    return True
 
-def checkDepth(*args):
+def checkDepth1(*args):
     for i in range(len(args)):
         for j in range(len(args)):
             if i!=j:
-                if args[i][0] == args[j][0]+1 or args[i][0] = len(mapM) - 1 or args[i][0]+1:
+                if args[i][0] == args[j][0]+1 or args[i][0] == len(mapM) - 1 or args[i][0]+1=='X':
                     return True
     return False
 
-def checkDepth(*args):
+def checkDepth2(*args):
     ok=True    
     for i in args:
         ok=False
@@ -106,9 +109,9 @@ if __name__ == '__main__':
    
     
 
-    problem.addConstraint(different, allconts)
-    problem.addConstraint(setPorts, allconts)
-    problem.addConstraint(checkDepth, allconts)
+    problem.addConstraint(different,)
+    problem.addConstraint(setPorts,)
+    problem.addConstraint(checkDepth1,)
 
     solutions = problem.getSolutions()
     print (" #{0} solutions have been found.".format(len(solutions)))
