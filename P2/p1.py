@@ -87,11 +87,11 @@ def checkDepth23448(*args):
         else: ok=False 
     return ok
 
-def alltheway(i, args):
+def alltheway(i, *args):
     ok= True
     for j in range(i,len(args)):
         for k in range(j, len(args)):
-            if args[j][0]+1 != args[k][0] and args[i][0] != len(mapM) - 1 and mapM[args[i][0]+1][args[i][1]]!='X':
+            if args[j][0] +1 != args[k][0] and args[i][0] != (len(mapM) - 1) and mapM[(args[i][0])+1][args[i][1]]!='X':
                 ok=False
             else: ok=True
     return ok
