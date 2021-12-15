@@ -137,7 +137,10 @@ def main():
 
     solutions = problem.getSolutions()
     print (" #{0} solutions have been found.".format(len(solutions)))
-    print(solutions)
+    output=sys.argv[1]+"-"+sys.argv[2]
+    outfile=open(output, "w+")
+    for line in solutions:
+        outfile.write("\n"+str(line))
     # print(allpos)
     # print(electrified)
     # print(allconts)
