@@ -5,14 +5,13 @@
 # Containers coordinates are expressed as follows: 
 # Containers at any port: [-1, -1] | Containers loaded: [stack, depth]
 
-
-
 def state(int shipLocation, List containers, self): 
     self.containers = containers
     self.shipLocation = shipLocation 
+    self.f = heuristicF)
 
 def container(int id, int containerLocation, List coordinates, int destination, Boolean state, self):
-    self.id = idContainer
+    self.id = id
     self.containerLocation = containerLocation
     self.coordinates = coordinates
     self.destination = destination 
@@ -26,20 +25,29 @@ def sail(state stateNow, int newShipLocation):
 
 def load(state stateNow, int containerId, List newPosition):
     for range in stateNow.containers:
-        if stateNow.containers[range] == containerId:
+        if stateNow.containers[range].id == containerId:
             stateNow.containers[range].coordinates[0] = newPosition[0]
             stateNow.containers[range].coordiantes[1] = newPosition[1]
-            #stateNow.containers[range].containerLocation = stateNow.shipLocation
+
+def unload(state stateNow, int containerId):
+    for range in stateNow.containers: 
+        if stateNow.containers[range].id == containerId:
+            stateNow.containers[range].coordinates[0] = -1
+            stateNow.containers[range].coordinates[1] = -1
+            # Check if reached destination:
             if stateNow.containers[range].containerLocation = stateNow.containers[range].destination:
                 stateNow.containers[range].state = True
 
-def unload(stateNow, int containerId):
+def gF():
+    if 
+    return g
 
-def gFunction():
+def hF():
 
-def hFunction():
+    return h
 
-def heuristicFunction():
+def heuristicF(ing g, int h):
+    return g + h
 
 def main():
     # example of container in origin port 
