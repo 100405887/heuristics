@@ -1,19 +1,11 @@
 # @100405988
 # @100405887
 #we import the constraint library
+import sys
 import constraint
 from constraint import *
 
-# Reading input files and storing data into lists
-bay = open("map", 'r')
-mapM = []
-for row in bay:
-    mapM.append(row.split())
 
-conts = open("container", 'r')
-contM = []
-for row in conts:
-    contM.append( row.split())
 
 
 def bottom(cont, bay, bayrowindex, baycolindex):
@@ -57,46 +49,59 @@ def setPorts(*args):
 
     return True
 
-def checkDepth1(*args):
-    ok=True
-    for i in range(len(args)):
-            for j in range(len(args)):
+# def checkDepth1(*args):
+#     ok=True
+#     for i in range(len(args)):
+#             for j in range(len(args)):
             
-                if args[i][0] == args[j][0]+1 or args[i][0] == len(mapM) - 1 or mapM[args[i][0]+1][args[i][1]]=='X':
-                    ok= True
-                else: ok=False 
-    return ok
+#                 if args[i][0] == args[j][0]+1 or args[i][0] == len(mapM) - 1 or mapM[args[i][0]+1][args[i][1]]=='X':
+#                     ok= True
+#                 else: ok=False 
+#     return ok
 
 
 def checkDepth2(*args):
     ok=True    
-    for i in args:
-        ok=False
-        posi=i
-        for j in args:
-            posj=j
-            if ((posj[1]-posi[1])<2 or (mapM[posi[0]][posi[1]+1]!='S' and mapM[posi[0]][posi[1]+1]!='E')):
-                ok=True
+    for posi in args:
+        if (mapM[posi[0]+1][posi[1]]=='N' or mapM[posi[0]+1][posi[1]]=='E'):
+            ok=False
+            for posj in args:
+                if posi[0]+1==posj[0] and posi[1]==posj[1]:
+                    ok=True    
+            if not ok: return False
+            
     return ok
 
 def checkDepth23448(*args):
     ok=True
-    for i in range(len(args)):
-        if alltheway(i, args) or args[i][0] == len(mapM) - 1 or mapM[args[i][0]+1][args[i][1]]=='X':
+    for pos in args:
+        if  alltheway(pos, args) or pos[0] == len(mapM) - 1 or mapM[pos[0]+1][pos[1]]=='X':
             ok= True
-        else: ok=False 
+        else: return False 
     return ok
 
-def alltheway(i, *args):
-    ok= True
-    for j in range(i,len(args)):
-        for k in range(j, len(args)):
-            if args[j][0] +1 != args[k][0] and args[i][0] != (len(mapM) - 1) and mapM[(args[i][0])+1][args[i][1]]!='X':
-                ok=False
-            else: ok=True
-    return ok
+def alltheway(checkpos, *args):
 
-if __name__ == '__main__':
+    for auxpos in args:
+        #print(args[j][0][0])
+        if auxpos[0]==checkpos[0]+1 and auxpos[1]==checkpos[1]:
+            return True
+        
+    return False
+
+def main():
+        # Reading input files and storing data into lists
+    bay = open(sys.argv[1], 'r')
+    global mapM
+    mapM = []
+    for row in bay:
+        mapM.append(row.split())
+
+    conts = open(sys.argv[2], 'r')
+    global contM
+    contM = []
+    for row in conts:
+        contM.append( row.split())
     problem = constraint.Problem()
     #adding the variables with their domains
     # All positions
@@ -128,11 +133,14 @@ if __name__ == '__main__':
 
     problem.addConstraint(different,)
     problem.addConstraint(setPorts,)
-    problem.addConstraint(checkDepth23448,)
+    problem.addConstraint(checkDepth2,)
 
     solutions = problem.getSolutions()
     print (" #{0} solutions have been found.".format(len(solutions)))
-    #print(solutions)
+    print(solutions)
     # print(allpos)
     # print(electrified)
     # print(allconts)
+
+if __name__ == '__main__':
+    main()
