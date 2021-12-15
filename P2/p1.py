@@ -43,7 +43,7 @@ def different(*args):
 def setPorts(*args):
     for i in range(len(args)):
         for j in range(len(args)):
-            if (contM[i][2]==1 and contM[j][2] == 2):
+            if (contM[i][2]=="1"and contM[j][2] == "2"):
                 if args[i][1]>args[j][1] and args[j][0]==args[i][0]:
                     return False 
 
