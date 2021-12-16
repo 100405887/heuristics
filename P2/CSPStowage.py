@@ -40,14 +40,7 @@ def different(*args):
                     return False 
     return True
 
-def setPorts(*args):
-    for i in range(len(args)):
-        for j in range(len(args)):
-            if (contM[i][2]=="1"and contM[j][2] == "2"):
-                if args[i][1]>args[j][1] and args[j][0]==args[i][0]:
-                    return False 
 
-    return True
 
 # def checkDepth1(*args):
 #     ok=True
@@ -59,7 +52,11 @@ def setPorts(*args):
 #                 else: ok=False 
 #     return ok
 
-
+def checkports(first, second):
+    if first[0]<second[0] and first[1]==second[1]:
+        return False
+    return True
+    
 def checkDepth(*args):
     ok=True    
     for posi in args:
@@ -147,7 +144,12 @@ def main():
    #creating the constraints in the library using our defined methods, without providing variables as they will apply to every
    #variable created for each execution, which will differ according to the data received in the containers file
     problem.addConstraint(different,)
-    problem.addConstraint(setPorts,)
+
+    for a in contM:
+        for b in contM:
+            if a[2]=='2' and b[2]=='1':
+                problem.addConstraint(checkports,[a[0],b[0]])
+
     problem.addConstraint(checkDepth,)
 
     #obtaining our solutions
