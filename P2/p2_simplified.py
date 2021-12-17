@@ -1,17 +1,3 @@
-# ---------------------- A* ---------------------- #
-class Graph:
-
-
-
-
-
-
-
-
-
-
-
-
 
 # ------------------------ Search simplified ------------------------ #
 
@@ -30,12 +16,70 @@ class container:
 class state:
     def __init__(self, containers):
         self.containers = containers 
+        self.g = 0
+        self.h = 0
 
     def load(self, containerId, newPosition):
         for range in self.containers:
             if range.id == containerId:
                 range.coordinates[0] = newPosition[0]
                 range.coordinates[1] = newPosition[1]
+
+
+# ---------------------- A* ---------------------- #
+
+class Node:
+    def __init__(self, parent=None, position=None):
+
+        self.parent = parent
+        self.position = position
+
+        self.g = 0
+        self.h = 0
+
+    def __eq__(self, other):
+        return self.position == other.position
+    
+    def getF(self):
+        return self.g + self.h
+
+def aStar(start):
+   
+    openList = [start]
+    closeList = []
+    exitAStar = False
+
+    while len(openList) != 0 or exitAStar == False:
+        n = openList.pop(0)
+        if n.isGoal(): # isGoal() analiza si el nodo n contiene el estado final
+            exitAStar = True
+        else:
+            closeList.insertOrdered(n) # define insertOrdered
+            s = n.getChildren() # getChildren() debe devolver lista sucesores
+            prev = s[0]
+            for range in s:
+                if range is in close: # ignore it
+                    # This if/else structure avoids unnecessary condition checks 
+                else:
+                    if range is not in openList and range is not in closeList:
+                        openList.insertOrdered(range) # define insertOrdered
+                    if range is in openList and range.getF() < prev.getF():
+                        openList.remove(prev)
+                        openList.insertOrdered(range)
+                prev = range # Update previous element saved to compare
+    if exitAStar:
+        solution = getPath() # Define getPath() to return path form N to I through pointers
+    else:
+        solution = False 
+
+
+            
+        
+
+        
+
+
+
 
 if __name__ == '__main__':
 
