@@ -54,7 +54,7 @@ def aStar(start):
         if n.isGoal(): # isGoal() analiza si el nodo n contiene el estado final
             exitAStar = True
         else:
-            closeList.insertOrdered(n) # define insertOrdered
+            insertOrdered(closeList, n) # define insertOrdered
             s = n.getChildren() # getChildren() debe devolver lista sucesores
             prev = s[0]
             for range in s:
@@ -62,15 +62,21 @@ def aStar(start):
                     # This if/else structure avoids unnecessary condition checks 
                 else:
                     if range is not in openList and range is not in closeList:
-                        openList.insertOrdered(range) # define insertOrdered
+                        insertOrdered(openList, range) # define insertOrdered
                     if range is in openList and range.getF() < prev.getF():
                         openList.remove(prev)
-                        openList.insertOrdered(range)
+                        insertOrdered(openList, range)
                 prev = range # Update previous element saved to compare
     if exitAStar:
         solution = getPath() # Define getPath() to return path form N to I through pointers
     else:
         solution = False 
+
+def insertOrdered(thisList, node):
+    for i in range(len(thisList)):
+        if thisList[i].getF() > node.getF():
+            thisList.insert(i, node)
+
 
 if __name__ == '__main__':
 
