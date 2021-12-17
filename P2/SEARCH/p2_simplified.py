@@ -72,15 +72,6 @@ def aStar(start):
     else:
         solution = False 
 
-
-            
-        
-
-        
-
-
-
-
 if __name__ == '__main__':
 
     bay = open("map_simp", 'r')
