@@ -58,12 +58,12 @@ def aStar(start):
             s = n.getChildren() # getChildren() debe devolver lista sucesores
             prev = s[0]
             for range in s:
-                if range is in close: # ignore it
-                    # This if/else structure avoids unnecessary condition checks 
+                if range in close: # ignore it
+                    continue # This if/else structure avoids unnecessary condition checks 
                 else:
-                    if range is not in openList and range is not in closeList:
+                    if range not in openList and range not in closeList:
                         insertOrdered(openList, range) # define insertOrdered
-                    if range is in openList and range.getF() < prev.getF():
+                    if range in openList and range.getF() < prev.getF():
                         openList.remove(prev)
                         insertOrdered(openList, range)
                 prev = range # Update previous element saved to compare
@@ -76,7 +76,6 @@ def insertOrdered(thisList, node):
     for i in range(len(thisList)):
         if thisList[i].getF() > node.getF():
             thisList.insert(i, node)
-
 
 if __name__ == '__main__':
 
