@@ -1,11 +1,11 @@
 # @100405988
 # @100405887
-#we import the constraint library
+#we import the constraint library and sys to read the arguments
 import sys
 import constraint
 from constraint import *
 
-
+#ensure that np two different containers are assigned the same cell
 def different(*args):
     for i in range(len(args)):
         for j in range(len(args)):
@@ -14,15 +14,18 @@ def different(*args):
                     return False 
     return True
 
+#when called for two containers going to port1 and port2, ensure that the one going to port1 is not stored under the one going to port2
 def checkports(first, second):
     if first[1]<second[1] and first[0]==second[0]:
         return False
     return True
-    
+
+#ensure that every given container is either a the bottom of the stack having a depth of the length, over an unavailable cell,
+# or on top of another container   
 def checkDepth(*args):
     ok=True    
     for posi in args:
-        if posi[1] != len(mapM[0]) - 1:
+        if posi[1] != len(mapM) - 1:
             if (mapM[posi[1]+1][posi[0]]=='N' or mapM[posi[1]+1][posi[0]]=='E'):
                 ok=False
                 for posj in args:
@@ -90,12 +93,17 @@ def main():
    #variable created for each execution, which will differ according to the data received in the containers file
     problem.addConstraint(different,)
 
+    #creating the depth constraint 
+    problem.addConstraint(checkDepth,)
+
+    #creating a loop that compares every container with each other, and in the case that one of them is destined to port 1 and the other to por 2
+    #it will create a constraint that ensures that the one being unloaded first (por1) is not in a deeper depth than the one going to port2
+    #if they are in the same stack
     for a in contM:
         for b in contM:
             if a[2]=='2' and b[2]=='1':
                 problem.addConstraint(checkports,[a[0],b[0]])
 
-    problem.addConstraint(checkDepth,)
 
     #obtaining our solutions
     solutions = problem.getSolutions()
