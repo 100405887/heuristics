@@ -1,4 +1,26 @@
+'''
+class state:
+    def __init__(self, containers):
+        self.containers = containers 
 
+    def load(self, containerId, newPosition):
+        for cont in self.containers:
+            if cont.id == containerId:
+                cont.coordinates[0] = newPosition[0]
+                cont.coordinates[1] = newPosition[1]
+
+    def load(self, containerId, newPosition):
+        # Copy containers list state to operate with new state
+        nextContainers = self.containers.copy()
+        nextState = state(nextContainers)
+        
+        for cont in nextContainers:
+            if cont.id == containerId:
+                cont.coordinates[0] = newPosition[0]
+                cont.coordinates[1] = newPosition[1]
+                
+        return nextState
+'''
 # ------------------------ Search simplified ------------------------ #
 
 # Containers coordinates are expressed as follows: 
@@ -13,49 +35,59 @@ class container:
         ans = str(self.id) + ", " + str(self.coordinates) + ", " + str(self.type_)
         return ans
 
-class state:
-    def __init__(self, containers):
-        self.containers = containers 
-        self.g = 0
-        self.h = 0
-
-    def load(self, containerId, newPosition):
-        for range in self.containers:
-            if range.id == containerId:
-                range.coordinates[0] = newPosition[0]
-                range.coordinates[1] = newPosition[1]
-
-
 # ---------------------- A* ---------------------- #
 
 class Node:
-    def __init__(self, parent=None, estado):
+    def __init__(self, containers, parent=None):
 
         self.parent = parent
-        self.estado = estado
+        self.containers = containers
 
         self.g = 0
         self.h = 0
 
     def __eq__(self, other):
-        return self.position == other.position
+        return self.containers == other.containers # and self.parent == other.parent
+    
+    def load(self, containerId, newPosition):
+        for cont in self.containers:
+            if cont.id == containerId:
+                cont.coordinates[0] = newPosition[0]
+                cont.coordinates[1] = newPosition[1]
+
+    def load(self, containerId, newPosition):
+        # Copy containers list of node to operate with new node
+        nextContainers = self.containers.copy()
+        nextState = Node(nextContainers, self.parent)
+        
+        for cont in nextContainers:
+            if cont.id == containerId:
+                cont.coordinates[0] = newPosition[0]
+                cont.coordinates[1] = newPosition[1]
+                
+        return nextState
     
     def getF(self):
         return self.g + self.h
-    
+    '''  
     def getChildren(self, node):
-        #Precodiciones
         children = []
-        for range in node.estado.containers:
-            for possiblePosition in listaPosiciones:
-                if huecoDisponibleDelTipo and noHuecoVacioDebajo:
-                    children.append(node.estado.load(range.id, possiblePosition))
+        #Precondiciones load 
+        for cont in node.containers: # Comprobar todos los contenedores...
+            for i in range(len(mapM)):
+                for j in range(len(mapM[i])) # ...en todas las posiciones posibles
+                    if cont.type_ == "S" and (mapM[i][j] != "X") and isEmpty(map[i][j]):
+                        if noHuecoVacioDebajo:
+                            children.append(node.load(cont.id, possiblePosition))
+        #Precodiciones unload
+        #Precondiciones sail
         return children 
+    '''
     
     def isGoal(self):
         # Si todos los contenedores están colocados en algun punto del barco, es meta
-        for range in self.estado.containers:
-            if range.coordinates[0] == -1:
+        for cont in self.containers:
+            if cont.coordinates[0] == -1:
                 return False
         return True
 
@@ -73,18 +105,19 @@ def aStar(start):
             insertOrdered(closeList, n) # inserta en orden segun f(n)
             s = n.getChildren() # getChildren() debe devolver lista sucesores
             prev = s[0]
-            for range in s:
-                if range in close: 
+            for nod in s:
+                if nod in close: 
                     continue # Ignore it. (This if/else structure saves up unnecessary condition checks) 
                 else:
-                    if range not in openList and range not in closeList:
-                        insertOrdered(openList, range)
-                    if range in openList and range.getF() < prev.getF():
+                    if nod not in openList and nod not in closeList:
+                        insertOrdered(openList, nod)
+                    # ¡¡¡REVISAR esta condicion para añadir el caso en que hay empate en valor de f(n)!!!
+                    if nod in openList and nod.getF() < prev.getF():
                         openList.remove(prev)
-                        insertOrdered(openList, range)
-                prev = range # Update previous element saved to compare
+                        insertOrdered(openList, nod)
+                prev = nod # Update previous element saved to compare
     if exitAStar:
-        solution = getPath() # Define getPath() to return path form N to I through pointers
+        solution = getPath(start, end) # Returns list of nodes from start to goal 
     else:
         solution = False 
 
@@ -93,6 +126,20 @@ def insertOrdered(thisList, node):
         if thisList[i].getF() > node.getF():
             thisList.insert(i, node)
 
+def getPath(a, b):
+    path = []
+    while b is not a:
+        path.insert(0, b) # Inserting at beginning so that path is start-end ordered
+        b = b.parent
+    return path
+
+''' INTENTO GETPATH RECURSIVO
+def getPath(listaNodos, a, b):
+    if a is b:
+        return listaNodos
+    else :
+        listaNodos.append(getPath(b.parent, b))
+'''
 if __name__ == '__main__':
 
     bay = open("map_simp", 'r')
@@ -108,9 +155,9 @@ if __name__ == '__main__':
         contM.append(row.split())
 
     myContainers = []
-    for range in contM:
-        id = int(range[0]) 
-        type_ = range[1]
+    for cont in contM:
+        id = int(cont[0]) 
+        type_ = cont[1]
         newContainer = container(id, [-1,-1], type_)
         myContainers.append(newContainer)
 
@@ -125,16 +172,16 @@ if __name__ == '__main__':
     # myContainers.append(container3)
 
     #Defining initial state
-    myState = state(myContainers)
+    myState = Node(myContainers)
 
     print(mapM)
     print(contM) 
-    for range in myContainers:
-        print(range)
+    for cont in myContainers:
+        print(cont)
 
     print('Loading container 1...') 
     myState.load(1,[2,2])
 
-    for range in myContainers:
-        print(range) 
+    for cont in myContainers:
+        print(cont) 
 
