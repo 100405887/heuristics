@@ -69,20 +69,26 @@ class Node:
     
     def getF(self):
         return self.g + self.h
-    '''  
-    def getChildren(self, node):
+    
+    def getChildren(self, node, map):
         children = []
         #Precondiciones load 
         for cont in node.containers: # Comprobar todos los contenedores...
-            for i in range(len(mapM)):
-                for j in range(len(mapM[i])) # ...en todas las posiciones posibles
-                    if cont.type_ == "S" and (mapM[i][j] != "X") and isEmpty(map[i][j]):
-                        if noHuecoVacioDebajo:
-                            children.append(node.load(cont.id, possiblePosition))
+            for i in range(len(map)):
+                for j in range(len(map[i])): # ...en todas las posiciones posibles
+                    if cont.type_ == "S" and map[i][j] != "X" and cellIsEmpty(map, i, j) and not cellIsEmpty(map, i+1, j):
+                        children.append(node.load(cont.id, possiblePosition))
+                    if cont.type_ == "R" and map[i][j] == "E" and cellIsEmpty(map, i, j) and not cellIsEmpty(map, i+1, j):
+                        children.append(node.load(cont.id, possiblePosition))
         #Precodiciones unload
         #Precondiciones sail
         return children 
-    '''
+
+    def cellIsEmpty(map, i, j):
+        for cont in self.containers:
+            if cont.coordinates[0] == i and cont.coordinates[1] == j:
+                return False
+        return True 
     
     def isGoal(self):
         # Si todos los contenedores están colocados en algun punto del barco, es meta
@@ -97,7 +103,7 @@ def aStar(start):
     closeList = []
     exitAStar = False
 
-    while len(openList) != 0 or exitAStar == False:
+    while len(openList) != 0 and exitAStar == False:
         n = openList.pop(0)
         if n.isGoal(): # isGoal() analiza si el nodo n contiene el estado final
             exitAStar = True
