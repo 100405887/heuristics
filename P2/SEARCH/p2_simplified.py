@@ -29,10 +29,10 @@ class state:
 # ---------------------- A* ---------------------- #
 
 class Node:
-    def __init__(self, parent=None, position=None):
+    def __init__(self, parent=None, estado):
 
         self.parent = parent
-        self.position = position
+        self.estado = estado
 
         self.g = 0
         self.h = 0
@@ -42,6 +42,22 @@ class Node:
     
     def getF(self):
         return self.g + self.h
+    
+    def getChildren(self, node):
+        #Precodiciones
+        children = []
+        for range in node.estado.containers:
+            for possiblePosition in listaPosiciones:
+                if huecoDisponibleDelTipo and noHuecoVacioDebajo:
+                    children.append(node.estado.load(range.id, possiblePosition))
+        return children 
+    
+    def isGoal(self):
+        # Si todos los contenedores están colocados en algun punto del barco, es meta
+        for range in self.estado.containers:
+            if range.coordinates[0] == -1:
+                return False
+        return True
 
 def aStar(start):
    
@@ -54,15 +70,15 @@ def aStar(start):
         if n.isGoal(): # isGoal() analiza si el nodo n contiene el estado final
             exitAStar = True
         else:
-            insertOrdered(closeList, n) # define insertOrdered
+            insertOrdered(closeList, n) # inserta en orden segun f(n)
             s = n.getChildren() # getChildren() debe devolver lista sucesores
             prev = s[0]
             for range in s:
-                if range in close: # ignore it
-                    continue # This if/else structure avoids unnecessary condition checks 
+                if range in close: 
+                    continue # Ignore it. (This if/else structure saves up unnecessary condition checks) 
                 else:
                     if range not in openList and range not in closeList:
-                        insertOrdered(openList, range) # define insertOrdered
+                        insertOrdered(openList, range)
                     if range in openList and range.getF() < prev.getF():
                         openList.remove(prev)
                         insertOrdered(openList, range)
