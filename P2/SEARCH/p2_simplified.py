@@ -32,18 +32,21 @@ class Node:
 
     def __eq__(self, other):
         # return self.containers == other.containers # and self.parent == other.parent
-        equal = True 
         for contSelf in self.containers:
             for contOther in other.containers:
                 if contSelf.id == contOther.id and (contSelf.coordinates[0]!=contOther.coordinates[0] or contSelf.coordinates[1]!=contOther.coordinates[1]):
-                    equal = False
-        return equal
+                    return False
+        return True
 
     def load(self, containerId, newPosition, mapa):
         # Copy containers list of node to operate with new node
         nextContainers = []
         for cont in self.containers:
-            nextContainers.append(cont)
+            newCoordinates = []
+            for coords in cont.coordinates:
+                newCoordinates.append(coords)
+            newCont = container(cont.id, newCoordinates, cont.type_)
+            nextContainers.append(newCont)
         nextState = Node(nextContainers, self)
         
         for cont in nextContainers:
@@ -102,9 +105,12 @@ class Node:
         for cont in self.containers: # Comprobar todos los contenedores...
             for i in range(len(mapa)):
                 for j in range(len(mapa[i])): # ...en todas las posiciones posibles
-                    if cont.type_ == "S" and mapa[i][j] != "X" and cellIsEmpty(self.containers, i, j) and (not cellIsEmpty(self.containers, i+1, j) or i+1 >= len(mapa)):
+                    print(cont.type_ + ";" + mapa[i][j] + ";" + str(cont.id) + '\n')
+                    if cont.type_ == "S" and mapa[i][j] != "X" and cellIsEmpty(self.containers, i, j) and (not cellIsEmpty(self.containers, i+1, j) or i+1 >= len(mapa) or mapa[i+1][j]=="X"):
+                        print('Loading container ' + str(cont.id) + ' in ' + str(i) + ',' + str(j) + "\n")
                         children.append(self.load(cont.id, [i, j], mapa))
-                    if cont.type_ == "R" and mapa[i][j] == "E" and cellIsEmpty(self.containers, i, j) and (not cellIsEmpty(self.containers, i+1, j) or i+1 >= len(mapa)):
+                    if cont.type_ == "R" and mapa[i][j] == "E" and cellIsEmpty(self.containers, i, j) and (not cellIsEmpty(self.containers, i+1, j) or i+1 >= len(mapa) or mapa[i+1][j]=="X"):
+                        print('Loading container ' + str(cont.id) + ' in ' + str(i) + ',' + str(j) + "\n")
                         children.append(self.load(cont.id, [i, j], mapa))
         #Precodiciones unload
         #Precondiciones sail
@@ -124,32 +130,32 @@ def aStar(start, mapa):
     exitAStar = False
 
     start.setH(mapa) # Calcula h(n) del nodo inicial
-
+    n = None
     while len(openList) != 0 and exitAStar == False:
         n = openList.pop(0)
         if n.isGoal(): # isGoal() analiza si el nodo n contiene el estado final
             exitAStar = True
         else:
-            insertOrdered(closeList, n) # inserta en orden segun f(n)
+            closeList = insertOrdered(closeList, n) # inserta en orden segun f(n)
             s = n.getChildren(mapa) # getChildren() debe devolver lista sucesores
             if len(s) > 0:
                 prev = s[0]
             for nod in s:
-                if nod in close: 
+                if nod in closeList: 
                     continue # Ignore it. (This if/else structure saves up unnecessary condition checks) 
                 else:
                     if nod not in openList and nod not in closeList:
-                        insertOrdered(openList, nod)
+                        openList = insertOrdered(openList, nod)
                     if nod in openList and nod.getF() < prev.getF():
                         openList.remove(prev)
-                        insertOrdered(openList, nod)
+                        openList = insertOrdered(openList, nod)
                     # In case of draw in f(n) value, we take smallest h(n). If h(n) is equal too, nothing happens 
                     if nod in openList and nod.getF() == prev.getF() and nod.h < prev.h:
                         openList.remove(prev)
-                        insertOrdered(openList, nod)
+                        openList = insertOrdered(openList, nod)
                 prev = nod # Update previous element saved to compare
     if exitAStar:
-        solution = getSolutionsPath(end) # Returns list of nodes from start to goal 
+        solution = getSolutionsPath(n) # Returns list of nodes from start to goal 
     else:
         solution = False 
 
@@ -159,6 +165,7 @@ def insertOrdered(thisList, node):
     for i in range(len(thisList)):
         if thisList[i].getF() > node.getF():
             thisList.insert(i, node)
+    return thisList
 
 def getSolutionsPath(nod):
     path = []
@@ -168,10 +175,10 @@ def getSolutionsPath(nod):
     return path
 
 def cellIsEmpty(containers, i, j):
-        for cont in containers:
-            if cont.coordinates[0] == i and cont.coordinates[1] == j:
-                return False
-        return True 
+    for cont in containers:
+        if cont.coordinates[0] == i and cont.coordinates[1] == j:
+            return False
+    return True 
 
 ''' INTENTO GETPATH RECURSIVO
 def getPath(listaNodos, a, b):
@@ -214,22 +221,22 @@ if __name__ == '__main__':
 
     #Defining initial state
     start = Node(myContainers)
-    solution = aStar(start, mapM)
-    if solution == False: 
-        print ('No solution found')
-    else: 
-        print (solution)
+    # solution = aStar(start, mapM)
+    # if solution == False: 
+    #     print ('No solution found')
+    # else: 
+    #     print (solution)
 
     print(mapM)
     print(contM) 
-    for cont in start.containers:
-        print(cont)
+    # for cont in start.containers:
+    #     print(cont)
 
-    print('Loading container 1...') 
-    start.load(1,[2,2], mapM)
+    # print('Loading container 1...') 
+    # start.load(1,[2,2], mapM)
 
-    for cont in start.containers:
-        print(cont) 
+    # for cont in start.containers:
+    #     print(cont) 
 
     print(start)
     print('Getting sucessors...')
@@ -238,3 +245,4 @@ if __name__ == '__main__':
     for node in sucesores:
         print(str(i) +".- "+ str(node) + "\n")
         i += 1
+    
