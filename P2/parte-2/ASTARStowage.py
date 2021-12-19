@@ -1,5 +1,4 @@
-# ------------------------ Search simplified ------------------------ #
-
+import sys
 # Containers coordinates are expressed as follows: 
 # Containers coordinates when at any port: [-1, -1] | Containers coordinates when loaded on ship bay: [stack, depth]
 
@@ -94,8 +93,6 @@ class Node:
 
         self.h = nS*(10+averageDepth) + nR*(10+averageDepthE)
         
-        #self.h = 1 
-
     def getH(self):
         return self.h
     
@@ -105,12 +102,12 @@ class Node:
         for cont in self.containers: # Comprobar todos los contenedores...
             for i in range(len(mapa)):
                 for j in range(len(mapa[i])): # ...en todas las posiciones posibles
-                    print(cont.type_ + ";" + mapa[i][j] + ";" + str(cont.id) + '\n')
+                    #print(cont.type_ + ";" + mapa[i][j] + ";" + str(cont.id) + '\n')
                     if cont.type_ == "S" and mapa[i][j] != "X" and cellIsEmpty(self.containers, i, j) and (not cellIsEmpty(self.containers, i+1, j) or i+1 >= len(mapa) or mapa[i+1][j]=="X"):
-                        print('Loading container ' + str(cont.id) + ' in ' + str(i) + ',' + str(j) + "\n")
+                        #print('Loading container ' + str(cont.id) + ' in ' + str(i) + ',' + str(j) + "\n")
                         children.append(self.load(cont.id, [i, j], mapa))
                     if cont.type_ == "R" and mapa[i][j] == "E" and cellIsEmpty(self.containers, i, j) and (not cellIsEmpty(self.containers, i+1, j) or i+1 >= len(mapa) or mapa[i+1][j]=="X"):
-                        print('Loading container ' + str(cont.id) + ' in ' + str(i) + ',' + str(j) + "\n")
+                        #print('Loading container ' + str(cont.id) + ' in ' + str(i) + ',' + str(j) + "\n")
                         children.append(self.load(cont.id, [i, j], mapa))
         #Precodiciones unload
         #Precondiciones sail
@@ -145,7 +142,7 @@ def aStar(start, mapa):
                     continue # Ignore it. (This if/else structure saves up unnecessary condition checks) 
                 else:
                     if nod not in openList and nod not in closeList:
-                        print('Inserting node in openList')
+                        #print('Inserting node in openList')
                         openList = insertOrdered(openList, nod)
                         #print(openList)
                     if nod in openList and nod.getF() < prev.getF():
@@ -168,14 +165,14 @@ def insertOrdered(thisList, node):
     if len(thisList) == 0:
         thisList.append(node)
     for i in range(len(thisList)):
-        print((thisList[i].getF()))
+        #print((thisList[i].getF()))
         if thisList[i].getF() > node.getF() or (thisList[i].getF() == node.getF() and thisList[i].h >= node.h):
-            for elem in thisList:
-                print(str(elem) + "; ")
-            print('inserting for real')
+            #for elem in thisList:
+                #print(str(elem) + "; ")
+            #print('inserting for real')
             thisList.insert(i, node)
-            for elem in thisList:
-                print(str(elem) + "; ")
+            # for elem in thisList:
+            #     print(str(elem) + "; ")
         
     return thisList
 
@@ -200,19 +197,24 @@ def getPath(listaNodos, a, b):
         listaNodos.append(getPath(b.parent, b))
 '''
 
-if __name__ == '__main__':
+def main():
 
-    bay = open("map_simp", 'r')
-    #global mapM
+    path=sys.argv[1]+"/"
+    map=sys.argv[2]
+    containers=sys.argv[3]
+
+    # Reading input files and storing data into matrix (arrays of arrays to define map and list of containers w/ different attributes)
+    bay = open(path+map, 'r')
+    global mapM
     mapM = []
     for row in bay:
         mapM.append(row.split())
 
-    conts = open("containers_simp", 'r')
-    #global contM
+    conts = open(path+containers, 'r')
+    global contM
     contM = []
     for row in conts:
-        contM.append(row.split())
+        contM.append( row.split())
 
     myContainers = []
     for cont in contM:
@@ -258,3 +260,5 @@ if __name__ == '__main__':
     #     print(str(i) +".- "+ str(node) + "\n")
     #     i += 1
     
+if __name__ == '__main__':
+    main()
