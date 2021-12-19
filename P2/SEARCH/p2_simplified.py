@@ -69,7 +69,7 @@ class Node:
         return self.g
 
     def setH(self, mapa):
-        '''
+        
         sumDepthN = 0
         sumDepthE = 0
         nN = 0
@@ -93,8 +93,8 @@ class Node:
         averageDepth = (sumDepthE+sumDepthN)/(nE+nN)
 
         self.h = nS*(10+averageDepth) + nR*(10+averageDepthE)
-        '''
-        self.h = 1 
+        
+        #self.h = 1 
 
     def getH(self):
         return self.h
@@ -138,15 +138,18 @@ def aStar(start, mapa):
         else:
             closeList = insertOrdered(closeList, n) # inserta en orden segun f(n)
             s = n.getChildren(mapa) # getChildren() debe devolver lista sucesores
-            if len(s) > 0:
-                prev = s[0]
+            prev = s[0]
             for nod in s:
                 if nod in closeList: 
+                    print('Node already in close list')
                     continue # Ignore it. (This if/else structure saves up unnecessary condition checks) 
                 else:
                     if nod not in openList and nod not in closeList:
+                        print('Inserting node in openList')
                         openList = insertOrdered(openList, nod)
+                        #print(openList)
                     if nod in openList and nod.getF() < prev.getF():
+                        #print('Inserting better node in openList')
                         openList.remove(prev)
                         openList = insertOrdered(openList, nod)
                     # In case of draw in f(n) value, we take smallest h(n). If h(n) is equal too, nothing happens 
@@ -162,9 +165,18 @@ def aStar(start, mapa):
     return solution
 
 def insertOrdered(thisList, node):
+    if len(thisList) == 0:
+        thisList.append(node)
     for i in range(len(thisList)):
-        if thisList[i].getF() > node.getF():
+        print((thisList[i].getF()))
+        if thisList[i].getF() > node.getF() or (thisList[i].getF() == node.getF() and thisList[i].h >= node.h):
+            for elem in thisList:
+                print(str(elem) + "; ")
+            print('inserting for real')
             thisList.insert(i, node)
+            for elem in thisList:
+                print(str(elem) + "; ")
+        
     return thisList
 
 def getSolutionsPath(nod):
