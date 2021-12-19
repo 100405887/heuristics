@@ -121,9 +121,6 @@ def main():
     #writing each possible solution found into a line 
     for line in solutions:
         outfile.write("\n"+str(line))
-    # print(allpos)
-    # print(electrified)
-    # print(allconts)
 
 if __name__ == '__main__':
     main()

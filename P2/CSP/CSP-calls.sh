@@ -1,5 +1,10 @@
-python3 CSPStowage.py data mapE containerE
-python3 CSPStowage.py data map2 containerE
-python3 CSPStowage.py data mapE container2
-python3 CSPStowage.py data map2 container2
-python3 CSPStowage.py data mapS containerS
+python3 CSPStowage.py CSP-tests mapE containerE
+python3 CSPStowage.py CSP-tests map2 containerE
+python3 CSPStowage.py CSP-tests mapE container2
+python3 CSPStowage.py CSP-tests map2 container2
+python3 CSPStowage.py CSP-tests mapS containerS
+python3 CSPStowage.py CSP-tests mapS containerE
+python3 CSPStowage.py CSP-tests mapS container2
+python3 CSPStowage.py CSP-tests mapE containerS
+python3 CSPStowage.py CSP-tests map2 containerS
+python3 CSPStowage.py CSP-tests mapNR containerR
