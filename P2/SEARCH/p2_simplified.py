@@ -221,14 +221,14 @@ if __name__ == '__main__':
 
     #Defining initial state
     start = Node(myContainers)
-    # solution = aStar(start, mapM)
-    # if solution == False: 
-    #     print ('No solution found')
-    # else: 
-    #     print (solution)
+    solution = aStar(start, mapM)
+    if solution == False: 
+        print ('No solution found')
+    else: 
+        print (solution)
 
-    print(mapM)
-    print(contM) 
+    # print(mapM)
+    # print(contM) 
     # for cont in start.containers:
     #     print(cont)
 
@@ -238,11 +238,11 @@ if __name__ == '__main__':
     # for cont in start.containers:
     #     print(cont) 
 
-    print(start)
-    print('Getting sucessors...')
-    sucesores = start.getChildren(mapM)
-    i = 1
-    for node in sucesores:
-        print(str(i) +".- "+ str(node) + "\n")
-        i += 1
+    # print(start)
+    # print('Getting sucessors...')
+    # sucesores = start.getChildren(mapM)
+    # i = 1
+    # for node in sucesores:
+    #     print(str(i) +".- "+ str(node) + "\n")
+    #     i += 1
     
